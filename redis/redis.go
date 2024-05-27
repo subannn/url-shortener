@@ -2,6 +2,7 @@ package redis
 
 import (
 	"context"
+	"log"
 	"os"
 
 	"github.com/google/uuid"
@@ -39,7 +40,7 @@ func CutAndSaveURL(longURL string) string {
 		panic(err)
 	}
 
-	for exists {
+	for exists { // hash can be used 
 		id = uuid.New()
 		shortURL = string(id.String()[1:6])
 
@@ -55,4 +56,9 @@ func CutAndSaveURL(longURL string) string {
 	}
 
 	return shortURL
+}
+
+func ShutdownRedis(ctxToShutdown context.Context) {
+	rdb.Shutdown(ctxToShutdown)
+	log.Println("Redis closed")
 }
