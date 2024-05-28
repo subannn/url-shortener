@@ -8,8 +8,8 @@ How .env file looks:
 SERVER_PORT=1323        
         
 #Redis settings        
-REDIS_ADDRESS=                  # redis adress        
-REDIS_PASSWORD=                 # P        
+REDIS_ADDRESS=                        
+REDIS_PASSWORD=                         
 HASH_NAME=                      # hash where you want to store the data.         
 
 ## 2. HTTP Requests
