@@ -1,4 +1,4 @@
-### URL Shortener
+# URL Shortener
 
 ## 1. Create .env file
 
@@ -15,7 +15,7 @@ HASH_NAME=                      # hash where you want to store the data.
 ## 2. HTTP Requests
 
 
-# POST /cutURL
+### POST /cutURL
 
 json
 {
@@ -25,7 +25,7 @@ json
 Returns short URL, for example "s4d5sd"
 
 
-# GET "/SHORT_URL"
+### GET "/SHORT_URL"
 
 If SHORT_URL exists, it will redirect you to the corresponding long URL
 
