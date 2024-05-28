@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -12,6 +13,7 @@ import (
 )
 
 func main() {
+	fmt.Println(os.Getenv("REDIS_ADDRESS"))
 	redis.RunRedis()
 	go server.RunServer()
 
@@ -29,6 +31,5 @@ func main() {
 	redis.ShutdownRedis(ctx)
 
 	<-ctx.Done()
-
 	log.Println("shutting down")
 }

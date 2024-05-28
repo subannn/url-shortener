@@ -2,6 +2,7 @@ package server
 
 import (
 	"log"
+	"os"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -24,12 +25,16 @@ func RunServer() {
 
 	// Start server
 
-	if err := e.Start(":1323"); err != nil {
+	port := ":" + os.Getenv("SERVER_PORT")
+	if err := e.Start(port); err != nil {
 		log.Println(err)
 	}
 	
 }
 
 func ShutDownServer(ctxToShutdown context.Context) {
-	e.Shutdown(ctxToShutdown)
+	err := e.Shutdown(ctxToShutdown)
+	if err != nil {
+		log.Println(err)
+	}
 }
