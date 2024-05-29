@@ -18,7 +18,7 @@ HASH_NAME=                      # hash where you want to store the data.
 ### POST /cutURL
 
 json        
-{
+{        
     "longURL": "https://www.example.com/very/long/url",        
     "expirationTime": 12                             // Not used now        
 }
