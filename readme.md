@@ -17,10 +17,10 @@ HASH_NAME=                      # hash where you want to store the data.
 
 ### POST /cutURL
 
-json
+json        
 {
     "longURL": "https://www.example.com/very/long/url",        
-    "expirationTime": 12                             // Not used now
+    "expirationTime": 12                             // Not used now        
 }
 
 Returns short URL, for example "s4d5sd"
