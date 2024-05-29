@@ -29,7 +29,7 @@ func RunServer() {
 	if err := e.Start(port); err != nil {
 		log.Println(err)
 	}
-	
+
 }
 
 func ShutDownServer(ctxToShutdown context.Context) {

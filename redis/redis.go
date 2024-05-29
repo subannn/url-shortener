@@ -2,14 +2,12 @@ package redis
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"log"
 	"os"
 
 	"github.com/google/uuid"
-
 	"github.com/redis/go-redis/v9"
+	models "github.com/subannn/urlshorter/models"
 )
 
 var ctx = context.Background()
@@ -36,8 +34,7 @@ func GetLongURL(shortURL string) string {
 
 }
 
-func CutAndSaveURL(longURL string) string {
-
+func CutAndSaveURL(longURL models.RequestLongURL) string {
 	id := uuid.New()
 	shortURL := string(id.String()[1:6])
 	exists, err := rdb.HExists(ctx, hashName, shortURL).Result()
@@ -55,10 +52,9 @@ func CutAndSaveURL(longURL string) string {
 		}
 	}
 
-	err = rdb.HSet(ctx, hashName, shortURL, longURL).Err()
+	err = rdb.HSet(ctx, hashName, shortURL, longURL.LongURL).Err()
 	if err != nil {
-		fmt.Println("DOWS NOOOT WOORKKK")
-		panic(errors.New("DOWS NOOOT WOORKKK"))
+		panic(err)
 	}
 
 	return shortURL

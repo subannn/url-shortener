@@ -25,11 +25,14 @@ func CutLongURL(c echo.Context) error {
 		panic(err)
 	}
 
-	if(len(URL.LongURL) > 2000) {
-		panic("Input URL length exceeds 2000")
+	if len(URL.LongURL) > 2000 {
+		return c.String(400, "Input URL length exceeds 2000")
+	}
+	if URL.ExpirationTime > 100 {
+		return c.String(400, "ExpirationTime exceeds 100 hours")
 	}
 
-	shortURL := redis.CutAndSaveURL(URL.LongURL)
+	shortURL := redis.CutAndSaveURL(URL)
 
 	return c.String(http.StatusOK, shortURL)
 }
