@@ -28,3 +28,8 @@ Returns short URL, for example "s4d5sd"
 ### GET "/SHORT_URL"
 
 If SHORT_URL exists, it will redirect you to the corresponding long URL
+
+## 3. Run with docker        
+        
+docker build -t "tag_name"        
+docker run -p 1323:1323 --env-file .env "tag_name"        
