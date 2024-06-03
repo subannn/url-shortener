@@ -14,6 +14,7 @@ var ctx = context.Background()
 var rdb *redis.Client
 
 var hashName = os.Getenv("HASH_NAME")
+var sortedSetName = os.Getenv("SORTED_SET_NAME")
 
 func RunRedis() {
 	rdb = redis.NewClient(&redis.Options{
@@ -58,6 +59,18 @@ func CutAndSaveURL(longURL models.RequestLongURL) string {
 	}
 
 	return shortURL
+}
+
+func SaveExpirationDate(shortURL string, hrs int) {
+	z := redis.Z{
+		Score:  float64(hrs),
+		Member: shortURL,
+	}
+
+	err := rdb.ZAdd(ctx, sortedSetName, z).Err()
+	if err != nil {
+		log.Panic(err)	
+	}
 }
 
 func ShutdownRedis(ctxToShutdown context.Context) {

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/labstack/echo/v4"
 
@@ -33,6 +34,8 @@ func CutLongURL(c echo.Context) error {
 	}
 
 	shortURL := redis.CutAndSaveURL(URL)
+	hoursFromUnixTime := int(time.Now().Unix()/3600) + URL.ExpirationTime
+	redis.SaveExpirationDate(shortURL, hoursFromUnixTime)
 
 	return c.String(http.StatusOK, shortURL)
 }
