@@ -26,11 +26,11 @@ func CutLongURL(c echo.Context) error {
 		panic(err)
 	}
 
-	if len(URL.LongURL) > 2000 {
-		return c.String(400, "Input URL length exceeds 2000")
+	if len(URL.LongURL) > 2000 &&  len(URL.LongURL) < 10 {
+		return c.String(400, "Input URL length must be between 10 <= 2000")
 	}
-	if URL.ExpirationTime > 100 {
-		return c.String(400, "ExpirationTime exceeds 100 hours")
+	if URL.ExpirationTime > 100 && URL.ExpirationTime < 1 {
+		return c.String(400, "ExpirationTime must be between 1 <= 100")
 	}
 
 	shortURL := redis.CutAndSaveURL(URL)
