@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"sync"
 	"time"
 
 	redis "github.com/subannn/urlshorter/redis"
@@ -14,7 +15,18 @@ import (
 
 func main() {
 	fmt.Println(os.Getenv("REDIS_ADDRESS"))
-	redis.RunRedis()
+	mtx := &sync.Mutex{}
+	redis.RunRedis(mtx)
+
+	go func() {
+		redis.DeleteExpitedURLS(int(time.Now().Unix() / 3600))
+		for {
+			ticker := time.Tick(time.Hour)
+			<-ticker
+			redis.DeleteExpitedURLS(int(time.Now().Unix() / 3600))
+		}
+	}()
+
 	go server.RunServer()
 
 	c := make(chan os.Signal, 1)
