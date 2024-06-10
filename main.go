@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -14,7 +13,6 @@ import (
 )
 
 func main() {
-	fmt.Println(os.Getenv("REDIS_ADDRESS"))
 	mtx := &sync.Mutex{}
 	redis.RunRedis(mtx)
 
