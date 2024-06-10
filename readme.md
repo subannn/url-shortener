@@ -10,7 +10,8 @@ SERVER_PORT=1323
 #Redis settings        
 REDIS_ADDRESS=                        
 REDIS_PASSWORD=                         
-HASH_NAME=                      # hash where you want to store the data.         
+HASH_NAME=                      # hash to store the data.                
+SORTED_SET_NAME=                # sorted set to store the time of URLs expiration                        
 
 ## 2. HTTP Requests
 
